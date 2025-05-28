@@ -47,4 +47,4 @@ class VisitsState extends Equatable {
       VisitsState.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
-enum VisitsStatus { initial, loading, loaded, error, failed, success }
+enum VisitsStatus { initial, loading, submitting, loaded, error, failed, success }

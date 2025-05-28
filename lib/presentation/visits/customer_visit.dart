@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/domain/models/activity/Activity.dart';
 import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
+import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
 import 'package:route_to_market/presentation/components/AppButton.dart';
 import 'package:route_to_market/presentation/components/AppTextField.dart';
 import 'package:route_to_market/presentation/components/CustomBox.dart';
@@ -20,7 +22,7 @@ class CustomerVisitPage extends StatefulWidget {
 
 class _CustomerVisitPageState extends State<CustomerVisitPage> {
   TextEditingController notesController = TextEditingController();
-  List<int> selectedActivities = [];
+  List<int> completedActivities = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +35,11 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
-
         child: Stack(
           children: [
             ListView(
               children: [
+
                 AppTextField(
                   label: "Notes",
                   maxLines: 5,
@@ -50,54 +52,52 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                   "Select activities to complete",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                Expanded(
-                  child: BlocBuilder<ActivitiesBloc, ActivitiesState>(
-                    builder: (context, state) {
-                      if (state.status == ActivitiesStatus.loading &&
-                          state.activities.isEmpty) {
-                        return const CenteredColumn(
-                          content: SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      }
-
-                      if (state.status == ActivitiesStatus.error &&
-                          state.activities.isEmpty) {
-                        return CenteredColumn(content: Text(state.message));
-                      }
-
-                      List<Activity> activities =
-                          state.activities
-                              .map((e) => Activity.fromJson(e))
-                              .toList();
-
-                      return Column(
-                        children:
-                            activities.map((activity) {
-                              return ActivityCard(
-                                activity: activity,
-                                selected: selectedActivities.contains(
-                                  activity.id,
-                                ),
-                                onClick: () {
-                                  setState(() {
-                                    if (selectedActivities.contains(
-                                      activity.id,
-                                    )) {
-                                      selectedActivities.remove(activity.id);
-                                    } else {
-                                      selectedActivities.add(activity.id);
-                                    }
-                                  });
-                                },
-                              );
-                            }).toList(),
+                BlocBuilder<ActivitiesBloc, ActivitiesState>(
+                  builder: (context, state) {
+                    if (state.status == ActivitiesStatus.loading &&
+                        state.activities.isEmpty) {
+                      return const CenteredColumn(
+                        content: SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(),
+                        ),
                       );
-                    },
-                  ),
+                    }
+
+                    if (state.status == ActivitiesStatus.error &&
+                        state.activities.isEmpty) {
+                      return CenteredColumn(content: Text(state.message));
+                    }
+
+                    List<Activity> activities =
+                        state.activities
+                            .map((e) => Activity.fromJson(e))
+                            .toList();
+
+                    return Column(
+                      children:
+                          activities.map((activity) {
+                            return ActivityCard(
+                              activity: activity,
+                              selected: completedActivities.contains(
+                                activity.id,
+                              ),
+                              onClick: () {
+                                setState(() {
+                                  if (completedActivities.contains(
+                                    activity.id,
+                                  )) {
+                                    completedActivities.remove(activity.id);
+                                  } else {
+                                    completedActivities.add(activity.id);
+                                  }
+                                });
+                              },
+                            );
+                          }).toList(),
+                    );
+                  },
                 ),
               ],
             ),
@@ -105,10 +105,35 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
               left: 12,
               right: 12,
               bottom: 64,
-              child:
+              child: AppButton(
+                onClick: () {
+                  VisitDto visitDto = VisitDto(
+                    customerId: widget.customer.id,
+                    visitDate: DateTime.now(),
+                    status: 'Pending',
+                    location: 'Nairobi',
+                    notes: notesController.text,
+                    activitiesDone:
+                        completedActivities.map((e) => e.toString()).toList(),
+                  );
 
-
-              AppButton(onClick: () => {}, content: Text("Submit")),
+                  context.read<VisitsBloc>().add(MakeVisit(visitDto: visitDto));
+                },
+                content: BlocBuilder<VisitsBloc, VisitsState>(
+                  builder: (context, state) {
+                    if (state.status == VisitsStatus.submitting) {
+                      return SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      );
+                    }
+                    return Text("Submit");
+                  },
+                ),
+              ),
             ),
           ],
         ),

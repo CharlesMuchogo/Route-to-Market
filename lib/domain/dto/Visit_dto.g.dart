@@ -7,6 +7,7 @@ part of 'Visit_dto.dart';
 // **************************************************************************
 
 VisitDto _$VisitDtoFromJson(Map<String, dynamic> json) => VisitDto(
+  synced: json['synced'] as bool? ?? false,
   customerId: (json['customer_id'] as num).toInt(),
   visitDate: DateTime.parse(json['visit_date'] as String),
   status: json['status'] as String,
@@ -25,4 +26,5 @@ Map<String, dynamic> _$VisitDtoToJson(VisitDto instance) => <String, dynamic>{
   'location': instance.location,
   'notes': instance.notes,
   'activities_done': instance.activitiesDone,
+  'synced': instance.synced,
 };
