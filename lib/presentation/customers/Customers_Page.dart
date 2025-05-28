@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:route_to_market/domain/models/customer/Customer.dart';
 import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
 import 'package:route_to_market/presentation/customers/widgets/Customer_Widget.dart';
+import 'package:route_to_market/presentation/visits/customer_visit.dart';
 
 import '../components/CustomBox.dart';
 
@@ -46,7 +47,17 @@ class CustomersPage extends StatelessWidget {
               itemCount: customers.length,
               itemBuilder: (context, index) {
                 Customer customer = customers[index];
-                return BuildCompanyInfo(customer: customer, onClick: () {});
+                return BuildCompanyInfo(
+                  customer: customer,
+                  onClick: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder:
+                            (context) => CustomerVisitPage(customer: customer),
+                      ),
+                    );
+                  },
+                );
               },
             ),
           );

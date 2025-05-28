@@ -26,6 +26,18 @@ Color getAvatarColor(int id) {
   return colors[id % colors.length];
 }
 
+Color getActivityAvatarColor(int id) {
+  final colors = [
+    const Color(0xFFFCCDAC),
+    const Color(0xFFAE7F62),
+    const Color(0xFF613D28),
+    const Color(0xFF231810),
+    const Color(0xFF080808),
+    const Color(0xFF625F5D)
+  ];
+  return colors[id % colors.length];
+}
+
 String formatDate(DateTime date) {
   return DateFormat('MMM d, y').format(date);
 }

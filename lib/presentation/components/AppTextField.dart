@@ -10,7 +10,6 @@ class AppTextField extends StatefulWidget {
       required this.label,
       required this.textInputType,
       required this.icon,
-      required this.onSaved,
       required this.controller,
       this.onHidePassword});
 
@@ -21,7 +20,6 @@ class AppTextField extends StatefulWidget {
   final bool obscureText;
   final TextInputType textInputType;
   final Icon? icon;
-  final VoidCallback? onSaved;
   final VoidCallback? onHidePassword;
   final TextEditingController controller;
 
@@ -65,7 +63,6 @@ class _AppTextFieldState extends State<AppTextField> {
           style: const TextStyle(color: Colors.black),
           validator: (val) =>
               val!.isEmpty ? "${widget.label} cannot be empty" : null,
-          onSaved: (val) => widget.onSaved,
         ),
         const SizedBox(
           height: 20,

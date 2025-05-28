@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
 import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
 import 'package:route_to_market/presentation/customers/Customers_Page.dart';
 
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) =>
         CustomersBloc(repository: repository)
           ..add(GetCustomers())),
+        BlocProvider(create: (context) =>
+        ActivitiesBloc(repository: repository)
+          ..add(GetActivities())),
       ],
       child: MaterialApp(
         title: 'Route To Market',

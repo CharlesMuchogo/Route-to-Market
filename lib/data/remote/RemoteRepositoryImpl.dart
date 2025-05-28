@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
+import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/domain/models/activity/Activity.dart';
 import 'package:route_to_market/domain/models/customer/Customer.dart';
 import 'package:route_to_market/domain/models/visit/Visit.dart';
@@ -62,6 +63,25 @@ class RemoteRepositoryImpl implements RemoteRepository{
     try {
       Response response = await dio.get(
         "/rest/v1/visits",
+      );
+
+      final List<dynamic> data = response.data;
+      return data.map((json) => Visit.fromJson(json)).toList();
+    } on DioException catch (e) {
+      log(e.error.toString());
+      throw Exception(e);
+    } catch (e) {
+      log(e.toString());
+      throw Exception("Something went wrong. Try again");
+    }
+  }
+
+  @override
+  Future<List<Visit>> makeVisits(VisitDto visitDto) async {
+    try {
+      Response response = await dio.post(
+        "/rest/v1/visits",
+        data: visitDto.toJson()
       );
 
       final List<dynamic> data = response.data;
