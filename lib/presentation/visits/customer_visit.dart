@@ -11,6 +11,7 @@ import 'package:route_to_market/presentation/components/CustomBox.dart';
 import 'package:route_to_market/presentation/customers/Customers_Visits.dart';
 
 import '../../domain/models/customer/Customer.dart';
+import '../components/AppSnackBar.dart';
 import 'activity_card.dart';
 
 class CustomerVisitPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
   TextEditingController notesController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   List<int> completedActivities = [];
-  String? locationError = null;
+  String? locationError;
 
   NewVisitStatus dropDownValue = NewVisitStatus.pending;
 
@@ -49,7 +50,7 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                 ),
               );
             },
-            icon: Icon(Icons.list_outlined),
+            icon: Icon(Icons.task),
           ),
         ],
       ),
@@ -190,8 +191,15 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                        setState(() {
                          locationController.text = "";
                          notesController.text = "";
+                         completedActivities = [];
                          dropDownValue = NewVisitStatus.pending;
                        });
+
+                       AppSnackBar.show(context,
+                           message: state.message,
+                           color: Colors.green,
+                           icon: Icons.check_circle
+                       );
                     }
                   },
                   builder: (context, state) {
