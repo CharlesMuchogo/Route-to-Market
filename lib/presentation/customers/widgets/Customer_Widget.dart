@@ -4,17 +4,17 @@ import 'package:route_to_market/utils/Utils.dart';
 
 
 
-class BuildCompanyInfo extends StatelessWidget {
+class BuildCustomerInfo extends StatelessWidget {
   final Customer customer;
   final VoidCallback onClick;
-  const BuildCompanyInfo({super.key, required this.customer, required this.onClick});
+  const BuildCustomerInfo({super.key, required this.customer, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onClick,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Row(
           children: [
             Container(

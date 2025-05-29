@@ -6,7 +6,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/models/customer/Customer.dart';
 
-part 'customers_event.dart';part 'customers_state.dart';
+part 'customers_event.dart';
+part 'customers_state.dart';
 
 class CustomersBloc extends HydratedBloc<CustomersEvent, CustomersState> {
   final RemoteRepository repository;
@@ -19,7 +20,6 @@ class CustomersBloc extends HydratedBloc<CustomersEvent, CustomersState> {
     if (state.status == CustomersStatus.initial) {
       emit(state.copyWith(status: CustomersStatus.loading));
     }
-
     try {
       List<Customer> results = await repository.fetchCustomers();
 
