@@ -1,4 +1,6 @@
 
+import 'package:flutter/cupertino.dart';
+
 class VisitFilters{
 
   final bool ascending;
@@ -18,4 +20,13 @@ class VisitFilters{
       status: status ?? this.status,
     );
   }
+}
+
+class OrderFilters{
+ final bool ascending;
+ final String name;
+ final IconData icon;
+
+  const OrderFilters({required this.ascending, required this.icon, required this.name});
+
 }

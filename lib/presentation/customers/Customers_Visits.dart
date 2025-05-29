@@ -19,15 +19,25 @@ class CustomersVisitsPage extends StatefulWidget {
 }
 
 class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<VisitsBloc>().add(GetCustomerVisits(id: widget.customer.id));
+  }
   bool isSearching = false;
   bool isFiltering = false;
+  List<OrderFilters> menuItems = [
+    OrderFilters(name: "Ascending", ascending: true, icon: Icons.arrow_upward),
+    OrderFilters(name: "Descending", ascending: false, icon: Icons.arrow_downward),
+  ];
   TextEditingController searchController = TextEditingController();
 
   VisitFilters filters = VisitFilters();
 
   @override
   Widget build(BuildContext context) {
-    context.read<VisitsBloc>().add(GetCustomerVisits(id: widget.customer.id));
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: !isSearching,
@@ -60,13 +70,43 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
           ),
 
           if (!isSearching)
-            IconButton(
-              onPressed: () {
+            PopupMenuButton<OrderFilters>(
+              icon: const Icon(Icons.filter_alt),
+              onSelected: (OrderFilters selected) {
+                setState(() {
+                  isFiltering = !isFiltering;
+
+                  filters = filters.copyWith(ascending: selected.ascending);
+                  context.read<VisitsBloc>().add(
+                    FilterCustomerVisits(
+                      filters: filters,
+                      id: widget.customer.id,
+                    ),
+                  );
+                });
+              },
+              onCanceled: () {
                 setState(() {
                   isFiltering = !isFiltering;
                 });
               },
-              icon: Icon(Icons.filter_alt),
+              itemBuilder: (BuildContext context) {
+                return menuItems
+                    .map(
+                      (item) => PopupMenuItem<OrderFilters>(
+                        value: item,
+                        child: Row(
+                          children: [
+                            Text(
+                              item.name,
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList();
+              },
             ),
         ],
       ),

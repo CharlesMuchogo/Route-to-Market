@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Route To Market',
         theme: ThemeData(
           textTheme: const TextTheme(
