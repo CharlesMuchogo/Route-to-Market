@@ -42,5 +42,5 @@ class Visit {
 
 
 enum NewVisitStatus {
-  pending, created, completed, cancelled
+  pending, completed, cancelled
 }

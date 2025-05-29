@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:route_to_market/domain/models/customer/Customer.dart';
 import 'package:route_to_market/domain/models/visit/Visit.dart';
 
 Widget buildStatCard(String label, String value, Color color) {
@@ -43,7 +44,7 @@ Widget buildStatCard(String label, String value, Color color) {
 
 
 
-Widget buildVisitCard(Visit visit) {
+Widget buildVisitCard(Visit visit, Customer customer) {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -71,7 +72,9 @@ Widget buildVisitCard(Visit visit) {
                 Icon(Icons.person, size: 16, color: Colors.grey[500]),
                 SizedBox(width: 8),
                 Text(
-                  'Customer #${visit.customerId}',
+                  customer.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,

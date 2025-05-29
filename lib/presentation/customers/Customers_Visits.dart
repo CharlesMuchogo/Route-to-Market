@@ -113,59 +113,57 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
             ),
         ],
       ),
-      body: Expanded(
-        child: BlocBuilder<VisitsBloc, VisitsState>(
-          builder: (context, state) {
-            if (state.status == VisitsStatus.loading &&
-                state.customerVisits.isEmpty) {
-              return const CenteredColumn(
-                content: SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            }
-
-            if (state.status == VisitsStatus.error &&
-                state.customerVisits.isEmpty) {
-              return CenteredColumn(content: Text(state.message));
-            }
-
-            List<Visit> visits = state.customerVisits.toList();
-
-            int pendingVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.pending.name).length;
-            int cancelledVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.cancelled.name).length;
-            int completedVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.completed.name).length;
-
-
-
-
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: ListView(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                    buildStatCard("Completed", "$completedVisitsCount", Colors.green[800]! ),
-                    buildStatCard("Pending  ", "$pendingVisitsCount", Colors.yellow[800]! ),
-                    buildStatCard("Cancelled", "$cancelledVisitsCount", Colors.red[800]! ),
-                  ],),
-
-                  const SizedBox(height: 16),
-                  ...visits.map(
-                    (visit) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: buildVisitCard(visit),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                ],
+      body: BlocBuilder<VisitsBloc, VisitsState>(
+        builder: (context, state) {
+          if (state.status == VisitsStatus.loading &&
+              state.customerVisits.isEmpty) {
+            return const CenteredColumn(
+              content: SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(),
               ),
             );
-          },
-        ),
+          }
+
+          if (state.status == VisitsStatus.error &&
+              state.customerVisits.isEmpty) {
+            return CenteredColumn(content: Text(state.message));
+          }
+
+          List<Visit> visits = state.customerVisits.toList();
+
+          int pendingVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.pending.name).length;
+          int cancelledVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.cancelled.name).length;
+          int completedVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.completed.name).length;
+
+
+
+
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                  buildStatCard("Completed", "$completedVisitsCount", Colors.green[800]! ),
+                  buildStatCard("Pending  ", "$pendingVisitsCount", Colors.yellow[800]! ),
+                  buildStatCard("Cancelled", "$cancelledVisitsCount", Colors.red[800]! ),
+                ],),
+
+                const SizedBox(height: 16),
+                ...visits.map(
+                  (visit) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: buildVisitCard(visit, widget.customer),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

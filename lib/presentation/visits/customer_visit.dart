@@ -29,7 +29,6 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
   List<int> completedActivities = [];
   String? locationError;
 
-  NewVisitStatus dropDownValue = NewVisitStatus.pending;
 
   @override
   Widget build(BuildContext context) {
@@ -78,30 +77,6 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                   error: locationError,
                   icon: null,
                   controller: locationController,
-                ),
-                Text(
-                  "Visit status",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: DropdownButton<NewVisitStatus>(
-                    isExpanded: true,
-                    value: dropDownValue,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items:
-                        NewVisitStatus.values.map((NewVisitStatus items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items.name),
-                          );
-                        }).toList(),
-                    onChanged: (NewVisitStatus? newValue) {
-                      setState(() {
-                        dropDownValue = newValue!;
-                      });
-                    },
-                  ),
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -173,7 +148,7 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                     VisitDto visitDto = VisitDto(
                       customerId: widget.customer.id,
                       visitDate: DateTime.now(),
-                      status: dropDownValue.name,
+                      status: "Pending",
                       location: locationController.text,
                       notes: notesController.text,
                       activitiesDone:
@@ -192,13 +167,20 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                          locationController.text = "";
                          notesController.text = "";
                          completedActivities = [];
-                         dropDownValue = NewVisitStatus.pending;
                        });
 
                        AppSnackBar.show(context,
                            message: state.message,
                            color: Colors.green,
                            icon: Icons.check_circle
+                       );
+
+                       Navigator.of(context).push(
+                         MaterialPageRoute(
+                           builder:
+                               (context) =>
+                               CustomersVisitsPage(customer: widget.customer),
+                         ),
                        );
                     }
                   },

@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:route_to_market/data/local/LocalDatabase.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
@@ -167,12 +166,9 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     MonitorConnectivity event,
     Emitter<VisitsState> emit,
   ) {
-    log("Connections available check -> ");
     connectivitySubscription = connectivity.onConnectivityChanged.listen((
       connectivityResult,
     ) async {
-      log("Connections available -> $connectivityResult");
-
       if (connectivityResult.contains(ConnectivityResult.none)) {
         log("Internet Disconnected");
       } else {
@@ -206,11 +202,5 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
       return state.toMap();
     }
     return null;
-  }
-
-  @override
-  void onChange(Change<VisitsState> change) {
-    super.onChange(change);
-    debugPrint('$change');
   }
 }
