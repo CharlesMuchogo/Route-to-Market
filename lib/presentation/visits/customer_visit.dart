@@ -7,6 +7,7 @@ import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
 import 'package:route_to_market/presentation/components/AppButton.dart';
 import 'package:route_to_market/presentation/components/AppTextField.dart';
 import 'package:route_to_market/presentation/components/CustomBox.dart';
+import 'package:route_to_market/presentation/customers/Customers_Visits.dart';
 
 import '../../domain/models/customer/Customer.dart';
 import 'activity_card.dart';
@@ -32,6 +33,19 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
           widget.customer.name,
           style: Theme.of(context).textTheme.titleMedium,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:
+                      (context) => CustomersVisitsPage(customer: widget.customer),
+                ),
+              );
+            },
+            icon: Icon(Icons.list_outlined),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
@@ -99,7 +113,7 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                   },
                 ),
 
-                const SizedBox(height: 72,)
+                const SizedBox(height: 72),
               ],
             ),
             Positioned(

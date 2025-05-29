@@ -14,6 +14,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   List _pages = [];
   int _selectedPageIndex = 0;
+
   @override
   void initState() {
     _pages = [
@@ -34,27 +35,28 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
+
       ),
-      body: _pages[_selectedPageIndex]['page'],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _selectPage,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        unselectedItemColor: Colors.black,
-        unselectedFontSize: 12,
-        selectedItemColor: Theme.of(context).primaryColor,
-        currentIndex: _selectedPageIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Customers',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder_copy_rounded),
-            label: 'Activities',
-          ),
-        ],
-      ),
+    body: _pages[_selectedPageIndex]['page'],
+    bottomNavigationBar: BottomNavigationBar(
+    onTap: _selectPage,
+    showSelectedLabels: true,
+    showUnselectedLabels: true,
+    unselectedItemColor: Colors.black,
+    unselectedFontSize: 12,
+    selectedItemColor: Theme.of(context).primaryColor,
+    currentIndex: _selectedPageIndex,
+    items: const [
+    BottomNavigationBarItem(
+    icon: Icon(Icons.group),
+    label: 'Customers',
+    ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.folder_copy_rounded),
+    label: 'Activities',
+    ),
+    ],
+    ),
     );
   }
 }

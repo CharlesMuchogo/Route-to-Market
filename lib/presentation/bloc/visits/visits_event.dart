@@ -20,6 +20,17 @@ class GetVisits extends VisitsEvent {
   const GetVisits();
 }
 
+class GetCustomerVisits extends VisitsEvent {
+   final int id;
+  const GetCustomerVisits({required this.id});
+}
+
+class FilterCustomerVisits extends VisitsEvent {
+   final VisitFilters filters;
+   final int id;
+  const FilterCustomerVisits({required this.filters, required this.id });
+}
+
 class MakeVisit extends VisitsEvent {
   final VisitDto visitDto;
   const MakeVisit({required this.visitDto});

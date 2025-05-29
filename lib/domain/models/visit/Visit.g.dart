@@ -14,8 +14,8 @@ Visit _$VisitFromJson(Map<String, dynamic> json) => Visit(
   location: json['location'] as String,
   notes: json['notes'] as String,
   activitiesDone:
-      (json['activities_done'] as List<dynamic>)
-          .map((e) => e as String)
+      (json['activities_done'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
   createdAt:
       json['created_at'] == null

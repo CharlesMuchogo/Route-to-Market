@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/models/customer/Customer.dart';
 
-part 'customers_event.dart';part 'customers_state.dart';
+part 'customers_event.dart';
+part 'customers_state.dart';
 
 class CustomersBloc extends HydratedBloc<CustomersEvent, CustomersState> {
   final RemoteRepository repository;

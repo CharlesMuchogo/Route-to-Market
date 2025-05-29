@@ -1,5 +1,4 @@
 
-import 'dart:ffi';
 
 import 'package:hive_flutter/adapters.dart';
 import 'package:route_to_market/domain/dto/Visit_dto.dart';

@@ -9,7 +9,6 @@ import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dar
 import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
 import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
 import 'package:route_to_market/presentation/bottomBar/bottombar.dart';
-import 'package:route_to_market/presentation/customers/Customers_Page.dart';
 
 import 'data/local/LocalDatabaseImpl.dart';
 import 'data/remote/RemoteRepositoryImpl.dart';

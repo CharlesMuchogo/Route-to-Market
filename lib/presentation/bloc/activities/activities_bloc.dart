@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
 
 part 'activities_event.dart';
 part 'activities_state.dart';
@@ -22,7 +20,6 @@ class ActivitiesBloc extends HydratedBloc<ActivitiesEvent, ActivitiesState> {
     GetActivities event,
     Emitter<ActivitiesState> emit,
   ) async {
-    log("Getting activities");
     if (state.status == ActivitiesStatus.initial) {
       emit(state.copyWith(status: ActivitiesStatus.loading));
     }

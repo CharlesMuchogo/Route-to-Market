@@ -18,7 +18,7 @@ class Visit {
   final String notes;
 
   @JsonKey(name: 'activities_done')
-  final List<String> activitiesDone;
+  final List<String>? activitiesDone;
 
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
@@ -30,7 +30,7 @@ class Visit {
     required this.status,
     required this.location,
     required this.notes,
-    required this.activitiesDone,
+    this.activitiesDone,
     this.createdAt,
   });
 
@@ -38,4 +38,9 @@ class Visit {
       _$VisitFromJson(json);
 
   Map<String, dynamic> toJson() => _$VisitToJson(this);
+}
+
+
+enum VisitState {
+  pending, created, completed, cancelled
 }

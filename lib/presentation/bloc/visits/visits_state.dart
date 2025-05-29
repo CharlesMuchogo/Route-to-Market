@@ -2,17 +2,20 @@ part of 'visits_bloc.dart';
 
 class VisitsState extends Equatable {
   final List visits;
+  final List<Visit> customerVisits;
   final VisitsStatus status;
   final String message;
 
   const VisitsState({
     this.visits = const [],
+    this.customerVisits = const [],
     this.message = "",
     this.status = VisitsStatus.initial,
   });
 
   VisitsState copyWith({
     List? visits,
+    List<Visit>? customerVisits,
     String? message,
     VisitsStatus? status,
     bool? loggedIn,
@@ -20,7 +23,8 @@ class VisitsState extends Equatable {
     return VisitsState(
       visits: visits ?? this.visits,
       status: status ?? this.status,
-      message: message ?? this.message
+      customerVisits: customerVisits ?? this.customerVisits,
+      message: message ?? this.message,
     );
   }
 
@@ -28,7 +32,11 @@ class VisitsState extends Equatable {
   List<Object> get props => [visits, status, message];
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'visits': visits, 'message': message , 'status': status.index};
+    return <String, dynamic>{
+      'visits': visits,
+      'message': message,
+      'status': status.index,
+    };
   }
 
   factory VisitsState.fromMap(Map<String, dynamic> map) {
@@ -36,7 +44,7 @@ class VisitsState extends Equatable {
 
     return VisitsState(
       visits: List.from((map['visits'] as List)),
-      message: map['message'] ,
+      message: map['message'],
       status: VisitsStatus.values[index],
     );
   }
@@ -47,4 +55,12 @@ class VisitsState extends Equatable {
       VisitsState.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
-enum VisitsStatus { initial, loading, submitting, loaded, error, failed, success }
+enum VisitsStatus {
+  initial,
+  loading,
+  submitting,
+  loaded,
+  error,
+  failed,
+  success,
+}
