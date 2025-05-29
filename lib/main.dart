@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //final repository = RemoteRepositoryMock();
     final repository = RemoteRepositoryImpl();
     final localDatabase = LocalDatabaseImpl();
     final connectivity = Connectivity();
@@ -42,11 +43,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           lazy: false,
           create:
-              (context) => VisitsBloc(
-            repository: repository,
-            database: localDatabase,
-            connectivity: connectivity,
-          )..add(GetVisits())..add(MonitorConnectivity()),
+              (context) =>
+                  VisitsBloc(
+                      repository: repository,
+                      database: localDatabase,
+                      connectivity: connectivity,
+                    )
+                    ..add(GetVisits())
+                    ..add(MonitorConnectivity()),
         ),
         BlocProvider(
           create:
@@ -72,7 +76,11 @@ class MyApp extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.white,
           ),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue,
+            primary: Colors.blue,
+            onPrimary: Colors.white,
+          ),
         ),
         home: const BottomBar(),
       ),

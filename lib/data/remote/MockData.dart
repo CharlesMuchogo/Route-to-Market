@@ -1,0 +1,197 @@
+import 'package:route_to_market/domain/models/activity/Activity.dart';
+import 'package:route_to_market/domain/models/customer/Customer.dart';
+import 'package:route_to_market/domain/models/visit/Visit.dart';
+
+
+final List<Customer> fakeCustomers = [
+  Customer(
+    id: 1,
+    name: "Acme Corporation",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 2,
+    name: "Globex Corporation",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 3,
+    name: "Initech",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 4,
+    name: "Umbrella Corporation",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 5,
+    name: "Stark Industries",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 6,
+    name: "Wayne Enterprises",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 7,
+    name: "Cyberdyne Systems",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 8,
+    name: "Oscorp Industries",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 9,
+    name: "Wonka Industries",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+  Customer(
+    id: 10,
+    name: "Virtucon",
+    createdAt: DateTime.parse("2025-04-30T05:22:37.623162Z"),
+  ),
+];
+
+final List<Activity> fakeActivities = [
+  Activity(
+    id: 1,
+    description: "Product Demo",
+    createdAt: DateTime.parse("2025-04-30T07:45:20.431609Z"),
+  ),
+  Activity(
+    id: 2,
+    description: "Client Meeting",
+    createdAt: DateTime.parse("2025-04-30T07:45:20.431609Z"),
+  ),
+  Activity(
+    id: 3,
+    description: "Follow-up Call",
+    createdAt: DateTime.parse("2025-04-30T07:45:20.431609Z"),
+  ),
+  Activity(
+    id: 4,
+    description: "Contract Signing",
+    createdAt: DateTime.parse("2025-04-30T07:45:20.431609Z"),
+  ),
+  Activity(
+    id: 5,
+    description: "Feedback Session",
+    createdAt: DateTime.parse("2025-04-30T07:45:20.431609Z"),
+  ),
+];
+final List<Visit> fakeVisits = [
+  Visit(
+    id: 15,
+    customerId: 5,
+    visitDate: DateTime.parse("2023-10-05T15:00:00Z"),
+    status: "Pending",
+    location: "654 Maple St, Central City",
+    notes: "Scheduled follow-up.",
+    activitiesDone: ["7"],
+    createdAt: DateTime.parse("2025-04-30T05:23:03.034139Z"),
+  ),
+  Visit(
+    id: 16,
+    customerId: 6,
+    visitDate: DateTime.parse("2023-10-06T13:00:00Z"),
+    status: "Completed",
+    location: "987 Cedar St, Coast City",
+    notes: "Provided training on new software.",
+    activitiesDone: ["8", "9"],
+    createdAt: DateTime.parse("2025-04-30T05:23:03.034139Z"),
+  ),
+  Visit(
+    id: 17,
+    customerId: 7,
+    visitDate: DateTime.parse("2023-10-07T12:00:00Z"),
+    status: "Completed",
+    location: "159 Spruce St, Smallville",
+    notes: "Networking with local businesses.",
+    activitiesDone: ["10"],
+    createdAt: DateTime.parse("2025-04-30T05:23:03.034139Z"),
+  ),
+  Visit(
+    id: 19,
+    customerId: 9,
+    visitDate: DateTime.parse("2023-10-09T11:00:00Z"),
+    status: "Cancelled",
+    location: "852 Willow St, Starling City",
+    notes: "Rescheduled due to conflict.",
+    activitiesDone: ["2"],
+    createdAt: DateTime.parse("2025-04-30T05:23:03.034139Z"),
+  ),
+  Visit(
+    id: 55,
+    customerId: 4,
+    visitDate: DateTime.parse("2023-10-04T14:00:00Z"),
+    status: "Completed",
+    location: "321 Pine St, Star City",
+    notes: "Finalized contract details.",
+    activitiesDone: ["5", "6"],
+    createdAt: null,
+  ),
+  Visit(
+    id: 57,
+    customerId: 3,
+    visitDate: DateTime.parse("2023-10-04T14:00:00Z"),
+    status: "Completed",
+    location: "Nairobi Kenya",
+    notes: "A simple test visit",
+    activitiesDone: ["1", "3", "5", "7", "10"],
+    createdAt: null,
+  ),
+  Visit(
+    id: 58,
+    customerId: 3,
+    visitDate: DateTime.parse("2023-10-04T14:00:00Z"),
+    status: "Pending",
+    location: "Nairobi Kenya",
+    notes: "A simple test visit",
+    activitiesDone: ["1", "3", "5", "7", "10", "9"],
+    createdAt: null,
+  ),
+  Visit(
+    id: 20,
+    customerId: 10,
+    visitDate: DateTime.parse("2023-10-10T10:30:00Z"),
+    status: "Completed",
+    location: "951 Fir St, Fawcett City",
+    notes: "Conducted market research.",
+    activitiesDone: ["4", "5"],
+    createdAt: DateTime.parse("2025-04-30T05:23:03.034139Z"),
+  ),
+  Visit(
+    id: 21,
+    customerId: 6,
+    visitDate: DateTime.parse("2025-04-30T12:00:00Z"),
+    status: "Pending",
+    location: "test location",
+    notes: "Test feedback.",
+    activitiesDone: ["3"],
+    createdAt: DateTime.parse("2025-04-30T12:23:03.034139Z"),
+  ),
+  Visit(
+    id: 24,
+    customerId: 9,
+    visitDate: DateTime.parse("2025-04-30T14:44:44.225565Z"),
+    status: "Pending",
+    location: "westlands",
+    notes: "some notes here",
+    activitiesDone: ["1", "2"],
+    createdAt: DateTime.parse("2025-04-30T14:44:44.225662Z"),
+  ),
+  Visit(
+    id: 25,
+    customerId: 9,
+    visitDate: DateTime.parse("2025-04-30T14:51:27.911943Z"),
+    status: "Pending",
+    location: "westlands",
+    notes: "some notes here",
+    activitiesDone: ["1", "2"],
+    createdAt: DateTime.parse("2025-04-30T14:51:27.912011Z"),
+  ),
+];

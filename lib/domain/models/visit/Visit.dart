@@ -41,6 +41,6 @@ class Visit {
 }
 
 
-enum VisitState {
+enum NewVisitStatus {
   pending, created, completed, cancelled
 }

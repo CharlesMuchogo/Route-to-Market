@@ -125,16 +125,16 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
   void _onMakeVisit(MakeVisit event, Emitter<VisitsState> emit) async {
     emit(state.copyWith(status: VisitsStatus.submitting));
     try {
+      // Save visit locally first
       await database.saveVisit(event.visitDto);
-
-      VisitResponseDto response = await repository.makeVisit(event.visitDto);
-
       emit(
         state.copyWith(
           status: VisitsStatus.success,
           message: "Visit made Successfully",
         ),
       );
+
+      // Sync visits
       add(SyncVisits());
     } catch (e) {
       log("Error Syncing visits 1  ${e.toString()}");
@@ -146,12 +146,11 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     try {
       // sync the visits
       List<VisitDto> localVisits = await database.getSavedVisits();
-      log("Syncing ${localVisits.length} visits");
-      // VisitResponseDto response = await repository.makeVisits(localVisits);
 
-      for (VisitDto visit in localVisits) {
-        await database.deleteSavedVisit(visit);
-      }
+      VisitResponseDto response = await repository.makeVisits(localVisits);
+
+      await database.deleteAllSavedVisits();
+
       List<VisitDto> visits = await database.getSavedVisits();
 
       log("remaining visits are ${visits.length}");
