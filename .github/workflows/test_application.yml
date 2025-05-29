@@ -1,0 +1,40 @@
+name: Test Application
+
+on:
+  push:
+    branches:
+      - master
+      - visits
+
+jobs:
+  build_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      #Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Setup JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      # Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      # Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+       # Fetch packages
+      - name: Fetch packages
+        run: flutter pub get
+
+      # Run Tests
+      - name: Run tests
+        run: flutter test
