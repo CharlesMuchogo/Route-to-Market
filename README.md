@@ -1,18 +1,15 @@
 
----
 
-````markdown
-# 🛣️ Route-to-Market (RTM) Sales Force Automation App
+# Route-to-Market (RTM) Sales Force Automation App
 
 A Flutter-based mobile application designed to streamline the sales force automation process for Route-to-Market operations. The app enables sales teams to effectively manage their customer visits, track orders, and enhance on-the-ground decision-making.
 
-## 📱 Features
+## Features
 
 - 🔍 Customer and visit management with search & filters
 - 📅 Track customer visits and order statuses
 - ⬆️ Offline-first data with persistent storage via Hive and Hydrated BLoC
 - 🌐 Network status awareness using `connectivity_plus`
-- 📸 Cached images for optimized performance
 - 📈 Reactive UI with Flutter BLoC state management
 - 🧪 Comprehensive testing support with `bloc_test` and `mocktail`
 
@@ -33,7 +30,7 @@ A Flutter-based mobile application designed to streamline the sales force automa
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 To get a local copy up and running, follow these simple steps.
 
@@ -44,7 +41,7 @@ To get a local copy up and running, follow these simple steps.
 - Android Studio / VS Code
 - Emulator or real device
 
-### 📦 Installation
+### Installation
 
 1. **Clone the repo**
 
@@ -62,7 +59,7 @@ flutter pub get
 3. **Run code generation (for JSON models, etc.)**
 
 ```bash
-flutter pub run build_runner build --delete-conflicting-outputs
+make gen
 ```
 
 4. **Run the app**
@@ -73,7 +70,7 @@ flutter run
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 lib/
@@ -90,7 +87,7 @@ lib/
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 flutter test
@@ -98,19 +95,7 @@ flutter test
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Fork the repo and submit a pull request.
-
----
-
-## 📄 License
-
-This project is private and not licensed for redistribution at this time.
-
----
-
-## 👤 Author
+## Author
 
 * Charles Muchogo
 
