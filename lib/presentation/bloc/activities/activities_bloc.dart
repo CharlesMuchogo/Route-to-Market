@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class ActivitiesBloc extends HydratedBloc<ActivitiesEvent, ActivitiesState> {
     GetActivities event,
     Emitter<ActivitiesState> emit,
   ) async {
+    log("Getting activities");
     if (state.status == ActivitiesStatus.initial) {
       emit(state.copyWith(status: ActivitiesStatus.loading));
     }

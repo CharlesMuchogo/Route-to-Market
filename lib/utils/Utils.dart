@@ -41,3 +41,12 @@ Color getActivityAvatarColor(int id) {
 String formatDate(DateTime date) {
   return DateFormat('MMM d, y').format(date);
 }
+
+String formatDateTime(DateTime date) {
+  return DateFormat('MMM d, y hh:mm').format(date);
+}
+
+enum ConnectionType {
+  Wifi,
+  Mobile,
+}

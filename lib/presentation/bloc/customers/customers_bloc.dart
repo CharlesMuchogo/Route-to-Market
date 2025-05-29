@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,6 @@ class CustomersBloc extends HydratedBloc<CustomersEvent, CustomersState> {
     if (state.status == CustomersStatus.initial) {
       emit(state.copyWith(status: CustomersStatus.loading));
     }
-
     try {
       List<Customer> results = await repository.fetchCustomers();
 

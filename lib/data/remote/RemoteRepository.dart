@@ -13,6 +13,8 @@ abstract class RemoteRepository {
 
   Future<List<Visit>> fetchVisits();
 
-  Future<VisitResponseDto> makeVisits(VisitDto visitDto);
+  Future<VisitResponseDto> makeVisit(VisitDto visitDto);
+
+  Future<VisitResponseDto> makeVisits(List<VisitDto> visitDto);
 
 }

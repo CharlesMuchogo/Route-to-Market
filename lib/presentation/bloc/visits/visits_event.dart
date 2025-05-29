@@ -8,6 +8,14 @@ abstract class VisitsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class MonitorConnectivity extends VisitsEvent {
+  const MonitorConnectivity();
+}
+
+class SyncVisits extends VisitsEvent {
+  const SyncVisits();
+}
+
 class GetVisits extends VisitsEvent {
   const GetVisits();
 }

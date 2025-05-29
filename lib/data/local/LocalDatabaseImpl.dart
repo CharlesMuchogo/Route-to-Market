@@ -35,4 +35,26 @@ class LocalDatabaseImpl implements LocalDatabase {
     Box offlineVisits = Hive.box("visits");
     offlineVisits.add(visit.toJson());
   }
+
+  @override
+  Future<void> deleteSavedVisit(VisitDto visit) async {
+    final box = Hive.box("visits");
+
+    final keyToDelete = box.keys.firstWhere(
+          (key) {
+        final storedVisit = box.get(key);
+        if (storedVisit is Map<String, dynamic>) {
+          return storedVisit['visit_date'] == visit.visitDate;
+        } else if (storedVisit is Map) {
+          return storedVisit['visit_date'] == visit.visitDate;
+        }
+        return false;
+      },
+      orElse: () => null,
+    );
+
+    if (keyToDelete != null) {
+      await box.delete(keyToDelete);
+    }
+  }
 }

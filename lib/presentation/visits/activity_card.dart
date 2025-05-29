@@ -14,29 +14,12 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.symmetric(vertical: 8),
-      child:  GestureDetector(
+      child:  InkWell(
         onTap: onClick,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Row(
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: getActivityAvatarColor(activity.id),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Center(
-                  child: Text(
-                    getCompanyInitials(activity.description),
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -45,7 +28,7 @@ class ActivityCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
                       const Icon(
@@ -55,7 +38,7 @@ class ActivityCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Created ${formatDate(activity.createdAt)}',
+                        formatDateTime(activity.createdAt),
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             fontWeight: FontWeight.normal
                         ),

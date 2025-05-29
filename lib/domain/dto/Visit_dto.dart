@@ -15,10 +15,8 @@ class VisitDto {
   final String notes;
   @JsonKey(name: 'activities_done')
   final List<String> activitiesDone;
-  final bool synced;
 
   VisitDto({
-    this.synced = false,
     required this.customerId,
     required this.visitDate,
     required this.status,

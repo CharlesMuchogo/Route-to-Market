@@ -14,7 +14,7 @@ class AppButton extends StatelessWidget {
       },
       child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           height: 50,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(

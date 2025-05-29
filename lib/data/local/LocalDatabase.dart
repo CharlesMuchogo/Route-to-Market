@@ -12,4 +12,6 @@ abstract class LocalDatabase {
 
   Future<void> deleteAllSavedVisits();
 
+  Future<void> deleteSavedVisit(VisitDto visit);
+
 }

@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/domain/dto/Visit_response_dto.dart';
@@ -78,7 +79,7 @@ class RemoteRepositoryImpl implements RemoteRepository{
   }
 
   @override
-  Future<VisitResponseDto> makeVisits(VisitDto visitDto) async {
+  Future<VisitResponseDto> makeVisit(VisitDto visitDto) async {
     try {
       Response response = await dio.post(
         "/rest/v1/visits",
@@ -91,10 +92,31 @@ class RemoteRepositoryImpl implements RemoteRepository{
 
       return VisitResponseDto.fromJson(response.data);
     } on DioException catch (e) {
-      log("Dio Error -> ${e.error} ");
       throw Exception(e);
     } catch (e) {
-      log("Error -> ${e.toString()} ");
+      throw Exception("Something went wrong. Try again");
+    }
+  }
+
+  @override
+  Future<VisitResponseDto> makeVisits(List<VisitDto> visitDto) async {
+    try {
+      final data = visitDto.map((e) => e.toJson()).toList();
+
+      debugPrint("visits are -> ${data.toString()}");
+      Response response = await dio.post(
+          "/rest/v1/visits",
+          data: data
+      );
+
+      if (response.data is String || response.data == null) {
+        return VisitResponseDto();
+      }
+
+      return VisitResponseDto.fromJson(response.data);
+    } on DioException catch (e) {
+      throw Exception(e);
+    } catch (e) {
       throw Exception("Something went wrong. Try again");
     }
   }

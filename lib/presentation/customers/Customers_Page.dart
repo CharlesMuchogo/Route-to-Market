@@ -12,15 +12,7 @@ class CustomersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          "Customers",
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-      ),
-      body: BlocBuilder<CustomersBloc, CustomersState>(
+    return BlocBuilder<CustomersBloc, CustomersState>(
         builder: (context, state) {
           if (state.status == CustomersStatus.loading &&
               state.customers.isEmpty) {
@@ -47,7 +39,7 @@ class CustomersPage extends StatelessWidget {
               itemCount: customers.length,
               itemBuilder: (context, index) {
                 Customer customer = customers[index];
-                return BuildCompanyInfo(
+                return BuildCustomerInfo(
                   customer: customer,
                   onClick: () {
                     Navigator.of(context).push(
@@ -62,7 +54,6 @@ class CustomersPage extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
+      );
   }
 }
