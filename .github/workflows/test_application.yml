@@ -15,6 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # Api key
+      - name: Add api key
+        run: echo "API_KEY=${{ secrets.ANDROID_KEY_ALIAS }}" >> .env
+
       # Setup JDK
       - name: Set up JDK
         uses: actions/setup-java@v1

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/domain/dto/Visit_response_dto.dart';
@@ -14,7 +15,9 @@ class RemoteRepositoryImpl implements RemoteRepository{
 
   final dio = Dio();
   final BASE_URL = "https://kqgbftwsodpttpqgqnbh.supabase.co";
-  final API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxZ2JmdHdzb2RwdHRwcWdxbmJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5ODk5OTksImV4cCI6MjA2MTU2NTk5OX0.rwJSY4bJaNdB8jDn3YJJu_gKtznzm-dUKQb4OvRtP6c";
+  final API_KEY = dotenv.env['API_KEY'];
+
+      //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxZ2JmdHdzb2RwdHRwcWdxbmJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5ODk5OTksImV4cCI6MjA2MTU2NTk5OX0.rwJSY4bJaNdB8jDn3YJJu_gKtznzm-dUKQb4OvRtP6c";
 
   RemoteRepositoryImpl() {
     dio.options.baseUrl = BASE_URL;

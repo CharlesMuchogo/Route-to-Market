@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:route_to_market/data/local/LocalDatabase.dart';
@@ -17,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocalDatabase localDatabase = LocalDatabaseImpl();
   await localDatabase.initializeHiveDatabase();
+  await dotenv.load(fileName: ".env");
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory:
