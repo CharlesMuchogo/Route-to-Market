@@ -25,10 +25,6 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
-      # Grants execute permission
-      - name: Grant rights to gradlew
-        run: chmod +x ./gradlew
-
       # Set up Flutter
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
