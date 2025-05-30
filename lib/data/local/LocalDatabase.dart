@@ -1,6 +1,7 @@
 
 
 import 'package:route_to_market/domain/dto/Visit_dto.dart';
+import 'package:route_to_market/domain/models/activity/Activity.dart';
 
 abstract class LocalDatabase {
   Future<void>  initializeHiveDatabase();
@@ -12,5 +13,13 @@ abstract class LocalDatabase {
   Future<void> deleteAllSavedVisits();
 
   Future<void> deleteSavedVisit(VisitDto visit);
+
+  Future<void> saveActivity(Activity activity);
+
+  Future<void> saveActivities(List<Activity> activities);
+
+  Future<Activity> getActivity(int id);
+
+  Future<void> deleteAllActivities();
 
 }

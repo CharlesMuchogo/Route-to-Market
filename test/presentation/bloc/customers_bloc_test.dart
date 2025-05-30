@@ -8,9 +8,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:route_to_market/data/remote/MockData.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/data/remote/RemoteRepositoryMock.dart';
-import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
-import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
-import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
 import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
 
 class MockStorage extends Mock implements Storage {}

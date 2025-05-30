@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
 import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
 import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
 import 'package:route_to_market/presentation/components/AppButton.dart';

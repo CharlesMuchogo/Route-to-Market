@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
           lazy: false,
           create:
               (context) =>
-                  ActivitiesBloc(repository: repository)..add(GetActivities()),
+                  ActivitiesBloc(repository: repository, localDatabase: localDatabase)..add(GetActivities()),
         ),
       ],
       child: MaterialApp(

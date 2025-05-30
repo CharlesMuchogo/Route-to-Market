@@ -11,3 +11,8 @@ abstract class ActivitiesEvent extends Equatable {
 class GetActivities extends ActivitiesEvent {
   const GetActivities();
 }
+
+class GetVisitActivities extends ActivitiesEvent {
+  final List<int> activities;
+  const GetVisitActivities({required this.activities});
+}

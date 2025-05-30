@@ -4,7 +4,6 @@ import 'package:route_to_market/domain/models/activity/Activity.dart';
 import 'package:route_to_market/presentation/activities/widgets/activity_screen_card.dart';
 import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
 import 'package:route_to_market/presentation/components/CustomBox.dart';
-import 'package:route_to_market/presentation/visits/activity_card.dart';
 
 class ActivitiesPage extends StatelessWidget {
   const ActivitiesPage({super.key});

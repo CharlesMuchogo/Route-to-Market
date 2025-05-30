@@ -38,6 +38,8 @@ void main() {
       when(() => mockLocalDatabase.initializeHiveDatabase())
           .thenAnswer((_) async {});
 
+
+
       EquatableConfig.stringify = true;
 
       visitsBloc = VisitsBloc(

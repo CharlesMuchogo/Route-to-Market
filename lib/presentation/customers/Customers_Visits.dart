@@ -27,6 +27,8 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
 
   bool isSearching = false;
   bool isFiltering = false;
+  bool showVisitActivities = false;
+
   List<OrderFilters> menuItems = [
     OrderFilters(name: "Ascending", ascending: true, icon: Icons.arrow_upward),
     OrderFilters(
@@ -137,9 +139,6 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
           int cancelledVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.cancelled.name).length;
           int completedVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.completed.name).length;
 
-
-
-
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: ListView(
@@ -156,7 +155,7 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
                 ...visits.map(
                   (visit) => Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: buildVisitCard(visit, widget.customer),
+                    child: buildVisitCard(visit, widget.customer, context),
                   ),
                 ),
                 const SizedBox(height: 24),

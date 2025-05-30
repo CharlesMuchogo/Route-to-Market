@@ -68,6 +68,8 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     List<Visit> customerVisits =
         visits.where((visit) => visit.customerId == event.id).toList();
 
+    customerVisits.sort((a, b) => b.visitDate.compareTo(a.visitDate));
+
     emit(
       state.copyWith(
         status: VisitsStatus.loaded,
@@ -126,15 +128,16 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     try {
       // Save visit locally first
       await database.saveVisit(event.visitDto);
+
+      // Attempt to Sync visits
+      add(SyncVisits());
+
       emit(
         state.copyWith(
           status: VisitsStatus.success,
           message: "Visit made Successfully",
         ),
       );
-
-      // Sync visits
-      add(SyncVisits());
     } catch (e) {
       log("Error Syncing visits 1  ${e.toString()}");
       emit(state.copyWith(status: VisitsStatus.error, message: e.toString()));
@@ -146,13 +149,9 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
       // sync the visits
       List<VisitDto> localVisits = await database.getSavedVisits();
 
-      VisitResponseDto response = await repository.makeVisits(localVisits);
+      await repository.makeVisits(localVisits);
 
       await database.deleteAllSavedVisits();
-
-      List<VisitDto> visits = await database.getSavedVisits();
-
-      log("remaining visits are ${visits.length}");
 
       // Fetch synced visits from the server
       add(GetVisits());

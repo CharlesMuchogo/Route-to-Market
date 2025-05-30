@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:route_to_market/data/local/LocalDatabase.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/models/activity/Activity.dart';
 
@@ -11,9 +13,12 @@ part 'activities_state.dart';
 
 class ActivitiesBloc extends HydratedBloc<ActivitiesEvent, ActivitiesState> {
   final RemoteRepository repository;
+  final LocalDatabase localDatabase;
 
-  ActivitiesBloc({required this.repository}) : super(const ActivitiesState()) {
+  ActivitiesBloc({required this.repository, required this.localDatabase})
+    : super(const ActivitiesState()) {
     on<GetActivities>(_onGetActivities);
+    on<GetVisitActivities>(_onGetVisitActivities);
   }
 
   void _onGetActivities(
@@ -39,6 +44,28 @@ class ActivitiesBloc extends HydratedBloc<ActivitiesEvent, ActivitiesState> {
         state.copyWith(status: ActivitiesStatus.error, message: e.toString()),
       );
     }
+  }
+
+  void _onGetVisitActivities(
+    GetVisitActivities event,
+    Emitter<ActivitiesState> emit,
+  ) {
+    emit(state.copyWith(status: ActivitiesStatus.loading));
+
+    List<Activity> activities =
+        state.activities.map((e) => Activity.fromJson(e)).toList();
+
+    List<Activity> visitActivities =
+        activities
+            .where((activity) => event.activities.contains(activity.id))
+            .toList();
+
+    emit(
+      state.copyWith(
+        visitActivities: visitActivities,
+        status: ActivitiesStatus.loaded,
+      ),
+    );
   }
 
   @override
