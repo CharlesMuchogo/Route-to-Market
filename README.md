@@ -13,6 +13,32 @@ track orders, and enhance on-the-ground decision-making.
 - 📈 Reactive UI with Flutter BLoC state management
 - 🧪 Comprehensive testing support with `bloc_test` and `mocktail`
 
+## Screenshots
+
+
+
+### iOS
+
+<p align="center">
+<img src="screenshots/ios/1.png" width="120" alt=""/> 
+<img src="screenshots/ios/2.png" width="120" alt=""/> 
+<img src="screenshots/ios/3.png" width="120" alt=""/> 
+<img src="screenshots/ios/5.png" width="120" alt=""/> 
+<img src="screenshots/ios/6.png" width="120" alt=""/>
+</p>
+
+
+### Android
+
+<p align="center">
+<img src="screenshots/android/1.png" width="120" alt=""/> 
+<img src="screenshots/android/2.png" width="120" alt=""/> 
+<img src="screenshots/android/3.png" width="120" alt=""/> 
+<img src="screenshots/android/4.png" width="120" alt=""/> 
+<img src="screenshots/android/5.png" width="120" alt=""/> 
+</p>
+
+
 ---
 
 ## Architectural Choices
