@@ -135,7 +135,7 @@ Add a file .env in the root folder and add your api key in the following format
 
 `API_KEY=your_api_key`
 
-5**Run the app**
+5. **Run the app**
 
 ```bash
 flutter run
@@ -158,17 +158,7 @@ lib/
 └── main.dart           # Entry point
 ```
 
----
-
-## Running Tests
-
-```bash
-flutter test
-```
-
----
-
-## Author
+## Created by
 
 * Charles Muchogo
 
