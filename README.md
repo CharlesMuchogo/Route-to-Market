@@ -15,13 +15,9 @@ track orders, and enhance on-the-ground decision-making.
 
 ## Screenshots and screen recording
 
-
 ### Screen recording
 
-
 https://github.com/user-attachments/assets/6b45f714-d3e9-4804-a5a8-222cc675843c
-
-
 
 ### iOS
 
@@ -32,7 +28,6 @@ https://github.com/user-attachments/assets/6b45f714-d3e9-4804-a5a8-222cc675843c
 <img src="screenshots/ios/5.png" width="250" alt=""/> 
 <img src="screenshots/ios/6.png" width="250" alt=""/>
 </div>
-
 
 ### Android
 
@@ -85,8 +80,10 @@ https://github.com/user-attachments/assets/6b45f714-d3e9-4804-a5a8-222cc675843c
   flutter test
 ```
 
-- I use Github actions for CI/CD. Every time a push is made to the main branch we run tests and
-  build an apk
+- I use Github actions for CI/CD. Every time a push is made to the main branch we run tests, do lint
+  checks for code quality and build an apk
+
+- You can find the latest apk on the release section of the repository
 
 ## Assumptions, trade-offs, or limitations
 
