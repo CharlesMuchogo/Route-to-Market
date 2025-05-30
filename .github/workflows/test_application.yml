@@ -7,7 +7,7 @@ on:
       - visits
 
 jobs:
-  build_and_upload:
+  test_application:
     runs-on: ubuntu-latest
 
     steps:

@@ -1,18 +1,22 @@
-
 import 'package:flutter/material.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/utils/Utils.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
+import 'package:route_to_market/utils/utils.dart';
 
 class ActivityScreenCard extends StatelessWidget {
   final Activity activity;
   final VoidCallback onClick;
 
-  const ActivityScreenCard({super.key, required this.activity, required this.onClick});
+  const ActivityScreenCard({
+    super.key,
+    required this.activity,
+    required this.onClick,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.symmetric(vertical: 8),
-      child:  InkWell(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      child: InkWell(
         onTap: onClick,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -26,7 +30,7 @@ class ActivityScreenCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Center(
-                  child: Icon(Icons.task, color: Colors.grey.shade500,)
+                  child: Icon(Icons.task, color: Colors.grey.shade500),
                 ),
               ),
               const SizedBox(width: 12),
@@ -50,7 +54,7 @@ class ActivityScreenCard extends StatelessWidget {
                       Text(
                         formatDateTime(activity.createdAt),
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                            fontWeight: FontWeight.normal
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],
@@ -62,8 +66,7 @@ class ActivityScreenCard extends StatelessWidget {
             ],
           ),
         ),
-      )
-
-      ,);
+      ),
+    );
   }
 }

@@ -1,27 +1,30 @@
 part of 'activities_bloc.dart';
 
-
 class ActivitiesState extends Equatable {
   final List activities;
+  final List<Activity> visitActivities;
   final ActivitiesStatus status;
   final String message;
 
   const ActivitiesState({
     this.activities = const [],
+    this.visitActivities = const [],
     this.message = "",
     this.status = ActivitiesStatus.initial,
   });
 
   ActivitiesState copyWith({
     List? activities,
+    List<Activity>? visitActivities,
     String? message,
     ActivitiesStatus? status,
     bool? loggedIn,
   }) {
     return ActivitiesState(
       activities: activities ?? this.activities,
+      visitActivities: visitActivities ?? this.visitActivities,
       status: status ?? this.status,
-      message: message ?? this.message
+      message: message ?? this.message,
     );
   }
 
@@ -29,7 +32,11 @@ class ActivitiesState extends Equatable {
   List<Object> get props => [activities, status, message];
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'activities': activities, 'message': message , 'status': status.index};
+    return <String, dynamic>{
+      'activities': activities,
+      'message': message,
+      'status': status.index,
+    };
   }
 
   factory ActivitiesState.fromMap(Map<String, dynamic> map) {
@@ -37,7 +44,7 @@ class ActivitiesState extends Equatable {
 
     return ActivitiesState(
       activities: List.from((map['activities'] as List)),
-      message: map['message'] ,
+      message: map['message'],
       status: ActivitiesStatus.values[index],
     );
   }

@@ -1,19 +1,24 @@
-
 import 'package:flutter/material.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/utils/Utils.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
+import 'package:route_to_market/utils/utils.dart';
 
 class ActivityCard extends StatelessWidget {
   final Activity activity;
   final bool selected;
   final VoidCallback onClick;
 
-  const ActivityCard({super.key, required this.activity, required this.onClick, required this.selected});
+  const ActivityCard({
+    super.key,
+    required this.activity,
+    required this.onClick,
+    required this.selected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.symmetric(vertical: 8),
-      child:  InkWell(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      child: InkWell(
         onTap: onClick,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -39,7 +44,7 @@ class ActivityCard extends StatelessWidget {
                       Text(
                         formatDateTime(activity.createdAt),
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                            fontWeight: FontWeight.normal
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],
@@ -48,12 +53,11 @@ class ActivityCard extends StatelessWidget {
                 ],
               ),
               Expanded(child: SizedBox()),
-              Checkbox(value: selected, onChanged: (_) => onClick())
+              Checkbox(value: selected, onChanged: (_) => onClick()),
             ],
           ),
         ),
-      )
-
-      ,);
+      ),
+    );
   }
 }

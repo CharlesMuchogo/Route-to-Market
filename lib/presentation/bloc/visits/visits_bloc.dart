@@ -6,12 +6,11 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:route_to_market/data/local/LocalDatabase.dart';
-import 'package:route_to_market/data/remote/RemoteRepository.dart';
-import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/dto/Visit_response_dto.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
-import 'package:route_to_market/domain/models/visit/VisitFilters.dart';
+import 'package:route_to_market/data/local/local_database.dart';
+import 'package:route_to_market/data/remote/remote_repository.dart';
+import 'package:route_to_market/domain/dto/visit_dto.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
+import 'package:route_to_market/domain/models/visit/visit_filters.dart';
 
 part 'visits_event.dart';
 part 'visits_state.dart';
@@ -43,14 +42,25 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
 
     try {
       List<Visit> results = await repository.fetchVisits();
+      List<VisitDto> offlineVisits = await database.getSavedVisits();
 
       emit(
         state.copyWith(
           status: VisitsStatus.loaded,
           message: "Visits fetched Successfully",
+          offlineVisits: offlineVisits,
           visits: results.map((e) => e.toJson()).toList(),
         ),
       );
+
+      if (state.currentCustomerId != null) {
+        add(
+          FilterCustomerVisits(
+            filters: state.visitFilters,
+            id: state.currentCustomerId!,
+          ),
+        );
+      }
     } catch (e) {
       emit(state.copyWith(status: VisitsStatus.error, message: e.toString()));
     }
@@ -68,9 +78,12 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     List<Visit> customerVisits =
         visits.where((visit) => visit.customerId == event.id).toList();
 
+    customerVisits.sort((a, b) => b.visitDate.compareTo(a.visitDate));
+
     emit(
       state.copyWith(
         status: VisitsStatus.loaded,
+        currentCustomerId: event.id,
         customerVisits: customerVisits,
       ),
     );
@@ -97,7 +110,11 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     if (event.filters.status != null) {
       customerVisits =
           state.customerVisits
-              .where((visit) => visit.status == event.filters.status!)
+              .where(
+                (visit) =>
+                    visit.status.toLowerCase() ==
+                    event.filters.status!.toLowerCase(),
+              )
               .toList();
     }
 
@@ -116,6 +133,8 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     emit(
       state.copyWith(
         status: VisitsStatus.loaded,
+        currentCustomerId: event.id,
+        visitFilters: event.filters,
         customerVisits: customerVisits,
       ),
     );
@@ -126,15 +145,19 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     try {
       // Save visit locally first
       await database.saveVisit(event.visitDto);
+
+      // Attempt to Sync visits
+      add(SyncVisits());
+
+      List<VisitDto> offlineVisits = await database.getSavedVisits();
+
       emit(
         state.copyWith(
           status: VisitsStatus.success,
+          offlineVisits: offlineVisits,
           message: "Visit made Successfully",
         ),
       );
-
-      // Sync visits
-      add(SyncVisits());
     } catch (e) {
       log("Error Syncing visits 1  ${e.toString()}");
       emit(state.copyWith(status: VisitsStatus.error, message: e.toString()));
@@ -146,19 +169,12 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
       // sync the visits
       List<VisitDto> localVisits = await database.getSavedVisits();
 
-      VisitResponseDto response = await repository.makeVisits(localVisits);
-
+      await repository.makeVisits(localVisits);
       await database.deleteAllSavedVisits();
-
-      List<VisitDto> visits = await database.getSavedVisits();
-
-      log("remaining visits are ${visits.length}");
-
       // Fetch synced visits from the server
       add(GetVisits());
     } catch (e) {
       log("Error Syncing visits  ${e.toString()}");
-      emit(state.copyWith(status: VisitsStatus.error, message: e.toString()));
     }
   }
 

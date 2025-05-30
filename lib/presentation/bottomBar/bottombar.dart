@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:route_to_market/presentation/activities/activities_page.dart';
-import 'package:route_to_market/presentation/customers/Customers_Page.dart';
+import 'package:route_to_market/presentation/customers/customers_page.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -33,30 +33,24 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_pages[_selectedPageIndex]['title']),
-
+      appBar: AppBar(title: Text(_pages[_selectedPageIndex]['title'])),
+      body: _pages[_selectedPageIndex]['page'],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        unselectedItemColor: Colors.black,
+        unselectedFontSize: 12,
+        selectedItemColor: Theme.of(context).primaryColor,
+        currentIndex: _selectedPageIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Customers'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.folder_copy_rounded),
+            label: 'Activities',
+          ),
+        ],
       ),
-    body: _pages[_selectedPageIndex]['page'],
-    bottomNavigationBar: BottomNavigationBar(
-    onTap: _selectPage,
-    showSelectedLabels: true,
-    showUnselectedLabels: true,
-    unselectedItemColor: Colors.black,
-    unselectedFontSize: 12,
-    selectedItemColor: Theme.of(context).primaryColor,
-    currentIndex: _selectedPageIndex,
-    items: const [
-    BottomNavigationBarItem(
-    icon: Icon(Icons.group),
-    label: 'Customers',
-    ),
-    BottomNavigationBarItem(
-    icon: Icon(Icons.folder_copy_rounded),
-    label: 'Activities',
-    ),
-    ],
-    ),
     );
   }
 }
