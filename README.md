@@ -61,8 +61,12 @@ track orders, and enhance on-the-ground decision-making.
 - We assume that each visit is unique and will not be overwritten in the database (Since including
   other keys on the visit dto throws an error when syncing the visit).
 
-- The server does not return any body after syncing the data hence I have to re-fetch the data once I
-  sync the visits in order to get the fresh visits with their id's.
+- The server does not return any body after syncing the data hence I have to re-fetch the data once
+  I sync the visits in order to get the fresh visits with their id's.
+
+- I assume that the server will return all activities (or at least filter out missing activities)
+  that other visits have completed. Some are missing, for good user experience I'm filtering out the
+  missing visit activities on the visit page.
 
 ## Getting Started
 

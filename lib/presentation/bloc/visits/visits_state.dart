@@ -3,12 +3,14 @@ part of 'visits_bloc.dart';
 class VisitsState extends Equatable {
   final List visits;
   final List<Visit> customerVisits;
+  final List<VisitDto> offlineVisits;
   final VisitsStatus status;
   final String message;
 
   const VisitsState({
     this.visits = const [],
     this.customerVisits = const [],
+    this.offlineVisits = const [],
     this.message = "",
     this.status = VisitsStatus.initial,
   });
@@ -16,6 +18,7 @@ class VisitsState extends Equatable {
   VisitsState copyWith({
     List? visits,
     List<Visit>? customerVisits,
+    List<VisitDto>? offlineVisits,
     String? message,
     VisitsStatus? status,
     bool? loggedIn,
@@ -23,6 +26,7 @@ class VisitsState extends Equatable {
     return VisitsState(
       visits: visits ?? this.visits,
       status: status ?? this.status,
+      offlineVisits: offlineVisits ?? this.offlineVisits,
       customerVisits: customerVisits ?? this.customerVisits,
       message: message ?? this.message,
     );

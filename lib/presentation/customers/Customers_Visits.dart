@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/domain/models/customer/Customer.dart';
 import 'package:route_to_market/domain/models/visit/Visit.dart';
 import 'package:route_to_market/domain/models/visit/VisitFilters.dart';
@@ -133,23 +134,104 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
             return CenteredColumn(content: Text(state.message));
           }
 
+          if (state.status == VisitsStatus.error &&
+              state.customerVisits.isEmpty) {
+            return CenteredColumn(content: Text(state.message));
+          }
+
           List<Visit> visits = state.customerVisits.toList();
 
-          int pendingVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.pending.name).length;
-          int cancelledVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.cancelled.name).length;
-          int completedVisitsCount = visits.where((visit) => visit.status.toLowerCase() == NewVisitStatus.completed.name).length;
+          int pendingVisitsCount =
+              visits
+                  .where(
+                    (visit) =>
+                        visit.status.toLowerCase() ==
+                        NewVisitStatus.pending.name,
+                  )
+                  .length;
+          int cancelledVisitsCount =
+              visits
+                  .where(
+                    (visit) =>
+                        visit.status.toLowerCase() ==
+                        NewVisitStatus.cancelled.name,
+                  )
+                  .length;
+          int completedVisitsCount =
+              visits
+                  .where(
+                    (visit) =>
+                        visit.status.toLowerCase() ==
+                        NewVisitStatus.completed.name,
+                  )
+                  .length;
+
+          List<VisitDto> offlineVisits = state.offlineVisits.where(
+            (e) => e.customerId == widget.customer.id,
+          ).toList();
 
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: ListView(
               children: [
+                const SizedBox(height: 16),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                  buildStatCard("Completed", "$completedVisitsCount", Colors.green[800]! ),
-                  buildStatCard("Pending  ", "$pendingVisitsCount", Colors.yellow[800]! ),
-                  buildStatCard("Cancelled", "$cancelledVisitsCount", Colors.red[800]! ),
-                ],),
+                    buildStatCard(
+                      "Completed",
+                      "$completedVisitsCount",
+                      Colors.green[800]!,
+                    ),
+                    buildStatCard(
+                      "Pending  ",
+                      "$pendingVisitsCount",
+                      Colors.yellow[800]!,
+                    ),
+                    buildStatCard(
+                      "Cancelled",
+                      "$cancelledVisitsCount",
+                      Colors.red[800]!,
+                    ),
+                  ],
+                ),
+
+                offlineVisits.isNotEmpty
+                    ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        Text(
+                          "Unsynced Visits",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 16),
+                        ...offlineVisits.map((offlineVisit) {
+                          Visit visit = Visit(
+                            id: 1,
+                            customerId: offlineVisit.customerId,
+                            visitDate: offlineVisit.visitDate,
+                            status: offlineVisit.status,
+                            location: offlineVisit.location,
+                            notes: offlineVisit.notes,
+                          );
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: buildVisitCard(
+                              visit,
+                              widget.customer,
+                              context,
+                            ),
+                          );
+                        }),
+                        Text(
+                          "Synced Visits",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    )
+                    : SizedBox(),
 
                 const SizedBox(height: 16),
                 ...visits.map(

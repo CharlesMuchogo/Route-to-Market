@@ -9,7 +9,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:route_to_market/data/local/LocalDatabase.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/dto/Visit_response_dto.dart';
 import 'package:route_to_market/domain/models/visit/Visit.dart';
 import 'package:route_to_market/domain/models/visit/VisitFilters.dart';
 
@@ -43,11 +42,13 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
 
     try {
       List<Visit> results = await repository.fetchVisits();
+      List<VisitDto> offlineVisits = await database.getSavedVisits();
 
       emit(
         state.copyWith(
           status: VisitsStatus.loaded,
           message: "Visits fetched Successfully",
+          offlineVisits: offlineVisits,
           visits: results.map((e) => e.toJson()).toList(),
         ),
       );
@@ -132,9 +133,12 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
       // Attempt to Sync visits
       add(SyncVisits());
 
+      List<VisitDto> offlineVisits = await database.getSavedVisits();
+
       emit(
         state.copyWith(
           status: VisitsStatus.success,
+          offlineVisits: offlineVisits,
           message: "Visit made Successfully",
         ),
       );
@@ -150,9 +154,7 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
       List<VisitDto> localVisits = await database.getSavedVisits();
 
       await repository.makeVisits(localVisits);
-
       await database.deleteAllSavedVisits();
-
       // Fetch synced visits from the server
       add(GetVisits());
     } catch (e) {
