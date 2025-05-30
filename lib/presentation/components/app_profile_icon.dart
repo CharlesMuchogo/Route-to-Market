@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
 
 class AppProfileIcon extends StatelessWidget {
-  const AppProfileIcon( {required this.imageUrl, super.key, required this.onClick});
+  const AppProfileIcon({
+    required this.imageUrl,
+    super.key,
+    required this.onClick,
+  });
   final String imageUrl;
   final VoidCallback onClick;
 
@@ -16,22 +19,19 @@ class AppProfileIcon extends StatelessWidget {
           height: 56,
           alignment: Alignment.center,
           width: 56,
-          decoration:  const BoxDecoration(
-            color: Color.fromRGBO(243, 244, 248, 100) ,
-            shape: BoxShape.circle
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(243, 244, 248, 100),
+            shape: BoxShape.circle,
           ),
-          child:  AspectRatio(
+          child: AspectRatio(
             aspectRatio: 1,
             child: Image.network(
               imageUrl,
               fit: BoxFit.cover,
-              errorBuilder: (context, url, error) => const Center(
-                child: Icon(
-                  Icons.person,
-                  color: Colors.grey,
-                  size: 25,
-                ),
-              ),
+              errorBuilder:
+                  (context, url, error) => const Center(
+                    child: Icon(Icons.person, color: Colors.grey, size: 25),
+                  ),
             ),
           ),
         ),

@@ -1,48 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
+import 'package:route_to_market/domain/models/customer/customer.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
 import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
 import 'package:route_to_market/presentation/customers/widgets/visit_activities_dialog.dart';
 
-Widget buildStatCard(String label, String value, Color color) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Colors.grey[200]!),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.1),
-          spreadRadius: 1,
-          blurRadius: 2,
-          offset: Offset(0, 1),
-        ),
-      ],
-    ),
-    child: Column(
-      children: [
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: color,
+Widget buildStatCard({
+  required String label,
+  required String value,
+  required Color color,
+  required VoidCallback onClick,
+  required bool selected,
+}) {
+  return InkWell(
+    onTap: onClick,
+    child: Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: selected ? Colors.grey[200]! : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey[200]!),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha:0.1),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: Offset(0, 1),
           ),
-        ),
-        SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-      ],
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+        ],
+      ),
     ),
   );
 }
 
 Widget buildVisitCard(Visit visit, Customer customer, BuildContext context) {
   List<int> activitiesDone =
-      (visit.activitiesDone ?? List.empty())
-          .map((activity) => int.parse(activity))
+      (visit.activitiesDone ?? [])
+          .map((activity) => int.tryParse(activity))
+          .where((value) => value != null)
+          .cast<int>()
           .toList();
 
   return BlocBuilder<ActivitiesBloc, ActivitiesState>(
@@ -66,7 +77,7 @@ Widget buildVisitCard(Visit visit, Customer customer, BuildContext context) {
           border: Border.all(color: Colors.grey[200]!),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues(alpha: 0.1),
               spreadRadius: 1,
               blurRadius: 2,
               offset: Offset(0, 1),

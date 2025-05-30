@@ -1,36 +1,32 @@
-
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:route_to_market/data/remote/RemoteRepository.dart';
-import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/dto/Visit_response_dto.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
+import 'package:route_to_market/data/remote/remote_repository.dart';
+import 'package:route_to_market/domain/dto/visit_dto.dart';
+import 'package:route_to_market/domain/dto/visit_response_dto.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
+import 'package:route_to_market/domain/models/customer/customer.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
 
-class RemoteRepositoryImpl implements RemoteRepository{
-
+class RemoteRepositoryImpl implements RemoteRepository {
   final dio = Dio();
-  final BASE_URL = "https://kqgbftwsodpttpqgqnbh.supabase.co";
-  final API_KEY = dotenv.env['API_KEY'];
+  final baseUrl = "https://kqgbftwsodpttpqgqnbh.supabase.co";
+  final apiKey = dotenv.env['API_KEY'];
 
   RemoteRepositoryImpl() {
-    dio.options.baseUrl = BASE_URL;
+    dio.options.baseUrl = baseUrl;
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'apikey': API_KEY
+      'apikey': apiKey,
     };
   }
 
   @override
   Future<List<Activity>> fetchActivities() async {
     try {
-      Response response = await dio.get(
-        "/rest/v1/activities",
-      );
+      Response response = await dio.get("/rest/v1/activities");
 
       final List<dynamic> data = response.data;
       return data.map((json) => Activity.fromJson(json)).toList();
@@ -46,9 +42,7 @@ class RemoteRepositoryImpl implements RemoteRepository{
   @override
   Future<List<Customer>> fetchCustomers() async {
     try {
-      Response response = await dio.get(
-        "/rest/v1/customers",
-      );
+      Response response = await dio.get("/rest/v1/customers");
 
       final List<dynamic> data = response.data;
       return data.map((json) => Customer.fromJson(json)).toList();
@@ -64,9 +58,7 @@ class RemoteRepositoryImpl implements RemoteRepository{
   @override
   Future<List<Visit>> fetchVisits() async {
     try {
-      Response response = await dio.get(
-        "/rest/v1/visits",
-      );
+      Response response = await dio.get("/rest/v1/visits");
 
       final List<dynamic> data = response.data;
       return data.map((json) => Visit.fromJson(json)).toList();
@@ -84,7 +76,7 @@ class RemoteRepositoryImpl implements RemoteRepository{
     try {
       Response response = await dio.post(
         "/rest/v1/visits",
-        data: visitDto.toJson()
+        data: visitDto.toJson(),
       );
 
       if (response.data is String || response.data == null) {
@@ -105,10 +97,7 @@ class RemoteRepositoryImpl implements RemoteRepository{
       final data = visitDto.map((e) => e.toJson()).toList();
 
       debugPrint("visits are -> ${data.toString()}");
-      Response response = await dio.post(
-          "/rest/v1/visits",
-          data: data
-      );
+      Response response = await dio.post("/rest/v1/visits", data: data);
 
       if (response.data is String || response.data == null) {
         return VisitResponseDto();

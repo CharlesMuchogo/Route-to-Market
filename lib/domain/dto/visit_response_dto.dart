@@ -1,11 +1,9 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
-part 'Visit_response_dto.g.dart';
+part 'visit_response_dto.g.dart';
 
 @JsonSerializable()
 class VisitResponseDto {
-
   VisitResponseDto();
 
   factory VisitResponseDto.fromJson(Map<String, dynamic> json) =>

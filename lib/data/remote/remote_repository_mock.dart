@@ -1,10 +1,10 @@
-import 'package:route_to_market/data/remote/MockData.dart';
-import 'package:route_to_market/data/remote/RemoteRepository.dart';
-import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/dto/Visit_response_dto.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
+import 'package:route_to_market/data/remote/mock_data.dart';
+import 'package:route_to_market/data/remote/remote_repository.dart';
+import 'package:route_to_market/domain/dto/visit_dto.dart';
+import 'package:route_to_market/domain/dto/visit_response_dto.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
+import 'package:route_to_market/domain/models/customer/customer.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
 
 class RemoteRepositoryMock implements RemoteRepository {
   @override

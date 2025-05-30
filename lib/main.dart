@@ -5,14 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:route_to_market/data/local/LocalDatabase.dart';
+import 'package:route_to_market/data/local/local_database.dart';
 import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
 import 'package:route_to_market/presentation/bloc/customers/customers_bloc.dart';
 import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
 import 'package:route_to_market/presentation/bottomBar/bottombar.dart';
 
-import 'data/local/LocalDatabaseImpl.dart';
-import 'data/remote/RemoteRepositoryImpl.dart';
+import 'data/local/local_database_impl.dart';
+import 'data/remote/remote_repository_impl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,8 +62,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           lazy: false,
           create:
-              (context) =>
-                  ActivitiesBloc(repository: repository, localDatabase: localDatabase)..add(GetActivities()),
+              (context) => ActivitiesBloc(
+                repository: repository,
+                localDatabase: localDatabase,
+              )..add(GetActivities()),
         ),
       ],
       child: MaterialApp(

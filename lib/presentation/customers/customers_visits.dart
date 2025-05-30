@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
-import 'package:route_to_market/domain/models/visit/VisitFilters.dart';
+import 'package:route_to_market/domain/dto/visit_dto.dart';
+import 'package:route_to_market/domain/models/customer/customer.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
+import 'package:route_to_market/domain/models/visit/visit_filters.dart';
 import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
-import 'package:route_to_market/presentation/components/AppSearchBar.dart';
+import 'package:route_to_market/presentation/components/app_search_bar.dart';
 import 'package:route_to_market/presentation/customers/widgets/visit_widget_card.dart';
 
-import '../components/CustomBox.dart';
+import '../components/custom_box.dart';
 
 class CustomersVisitsPage extends StatefulWidget {
   final Customer customer;
@@ -166,9 +166,16 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
                   )
                   .length;
 
-          List<VisitDto> offlineVisits = state.offlineVisits.where(
-            (e) => e.customerId == widget.customer.id,
-          ).toList();
+          List<VisitDto> offlineVisits =
+              state.offlineVisits
+                  .where((e) => e.customerId == widget.customer.id)
+                  .toList();
+
+          if (state.visits.isEmpty && state.offlineVisits.isEmpty) {
+            return CenteredColumn(
+              content: Text("No visits found for ${widget.customer.name}"),
+            );
+          }
 
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
@@ -180,19 +187,69 @@ class _CustomersVisitsPageState extends State<CustomersVisitsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     buildStatCard(
-                      "Completed",
-                      "$completedVisitsCount",
-                      Colors.green[800]!,
+                      label: "Completed",
+                      value: "$completedVisitsCount",
+                      color: Colors.green[800]!,
+                      onClick: () {
+                        setState(() {
+                          if (filters.status == "Completed") {
+                            filters = filters.copyWith(status: null);
+                          } else {
+                            filters = filters.copyWith(status: filters.status);
+                          }
+                        });
+
+                        context.read<VisitsBloc>().add(
+                          FilterCustomerVisits(
+                            filters: filters,
+                            id: widget.customer.id,
+                          ),
+                        );
+                      },
+                      selected: filters.status == "Completed",
                     ),
                     buildStatCard(
-                      "Pending  ",
-                      "$pendingVisitsCount",
-                      Colors.yellow[800]!,
+                      label: "Pending  ",
+                      value: "$pendingVisitsCount",
+                      color: Colors.yellow[800]!,
+                      onClick: () {
+                        setState(() {
+                          if (filters.status == "Pending") {
+                            filters = filters.copyWith(status: null);
+                          } else {
+                            filters = filters.copyWith(status: filters.status);
+                          }
+                        });
+
+                        context.read<VisitsBloc>().add(
+                          FilterCustomerVisits(
+                            filters: filters,
+                            id: widget.customer.id,
+                          ),
+                        );
+                      },
+                      selected: filters.status == "Pending",
                     ),
                     buildStatCard(
-                      "Cancelled",
-                      "$cancelledVisitsCount",
-                      Colors.red[800]!,
+                      label: "Cancelled",
+                      value: "$cancelledVisitsCount",
+                      color: Colors.red[800]!,
+                      onClick: () {
+                        setState(() {
+                          if (filters.status == "Cancelled") {
+                            filters = filters.copyWith(status: null);
+                          } else {
+                            filters = filters.copyWith(status: filters.status);
+                          }
+                          context.read<VisitsBloc>().add(
+                            FilterCustomerVisits(
+                              filters: filters,
+                              id: widget.customer.id,
+                            ),
+                          );
+                        });
+                      },
+                      selected: filters.status == "Cancelled",
                     ),
                   ],
                 ),

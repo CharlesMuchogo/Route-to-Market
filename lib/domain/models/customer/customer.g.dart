@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Activity.dart';
+part of 'customer.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
+Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
   id: (json['id'] as num).toInt(),
-  description: json['description'] as String,
+  name: json['name'] as String,
   createdAt: DateTime.parse(json['created_at'] as String),
 );
 
-Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
+Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
   'id': instance.id,
-  'description': instance.description,
+  'name': instance.name,
   'created_at': instance.createdAt.toIso8601String(),
 };

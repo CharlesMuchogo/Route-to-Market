@@ -6,11 +6,11 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:route_to_market/data/local/LocalDatabase.dart';
-import 'package:route_to_market/data/remote/RemoteRepository.dart';
-import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
-import 'package:route_to_market/domain/models/visit/VisitFilters.dart';
+import 'package:route_to_market/data/local/local_database.dart';
+import 'package:route_to_market/data/remote/remote_repository.dart';
+import 'package:route_to_market/domain/dto/visit_dto.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
+import 'package:route_to_market/domain/models/visit/visit_filters.dart';
 
 part 'visits_event.dart';
 part 'visits_state.dart';
@@ -52,6 +52,15 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
           visits: results.map((e) => e.toJson()).toList(),
         ),
       );
+
+      if (state.currentCustomerId != null) {
+        add(
+          FilterCustomerVisits(
+            filters: state.visitFilters,
+            id: state.currentCustomerId!,
+          ),
+        );
+      }
     } catch (e) {
       emit(state.copyWith(status: VisitsStatus.error, message: e.toString()));
     }
@@ -74,6 +83,7 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     emit(
       state.copyWith(
         status: VisitsStatus.loaded,
+        currentCustomerId: event.id,
         customerVisits: customerVisits,
       ),
     );
@@ -100,7 +110,11 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     if (event.filters.status != null) {
       customerVisits =
           state.customerVisits
-              .where((visit) => visit.status == event.filters.status!)
+              .where(
+                (visit) =>
+                    visit.status.toLowerCase() ==
+                    event.filters.status!.toLowerCase(),
+              )
               .toList();
     }
 
@@ -119,6 +133,8 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
     emit(
       state.copyWith(
         status: VisitsStatus.loaded,
+        currentCustomerId: event.id,
+        visitFilters: event.filters,
         customerVisits: customerVisits,
       ),
     );
@@ -159,7 +175,6 @@ class VisitsBloc extends HydratedBloc<VisitsEvent, VisitsState> {
       add(GetVisits());
     } catch (e) {
       log("Error Syncing visits  ${e.toString()}");
-      emit(state.copyWith(status: VisitsStatus.error, message: e.toString()));
     }
   }
 

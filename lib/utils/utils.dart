@@ -3,13 +3,20 @@ import 'dart:ui';
 import 'package:intl/intl.dart';
 
 String getCompanyInitials(String name) {
-  final words = name.split(' ');
-  if (words.length >= 2) {
-    return '${words[0][0]}${words[1][0]}'.toUpperCase();
-  } else if (words.isNotEmpty) {
-    return words[0].substring(0, words[0].length >= 2 ? 2 : 1).toUpperCase();
+  try {
+    if (name.isEmpty) return '?';
+
+    final words = name.split(' ');
+    if (words.length >= 2) {
+      return '${words[0][0]}${words[1][0]}'.toUpperCase();
+    } else if (words.isNotEmpty) {
+      return words[0].substring(0, words[0].length >= 2 ? 2 : 1).toUpperCase();
+    }
+
+    return 'C';
+  } catch (e) {
+    return 'C';
   }
-  return 'C';
 }
 
 Color getAvatarColor(int id) {
@@ -33,7 +40,7 @@ Color getActivityAvatarColor(int id) {
     const Color(0xFF613D28),
     const Color(0xFF231810),
     const Color(0xFF080808),
-    const Color(0xFF625F5D)
+    const Color(0xFF625F5D),
   ];
   return colors[id % colors.length];
 }
@@ -46,7 +53,4 @@ String formatDateTime(DateTime date) {
   return DateFormat('MMM d, y hh:mm').format(date);
 }
 
-enum ConnectionType {
-  Wifi,
-  Mobile,
-}
+enum ConnectionType { wifi, mobile }

@@ -20,7 +20,7 @@ class CustomersState extends Equatable {
     return CustomersState(
       customers: customers ?? this.customers,
       status: status ?? this.status,
-      message: message ?? this.message
+      message: message ?? this.message,
     );
   }
 
@@ -28,7 +28,11 @@ class CustomersState extends Equatable {
   List<Object> get props => [customers, status, message];
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'customers': customers, 'message': message , 'status': status.index};
+    return <String, dynamic>{
+      'customers': customers,
+      'message': message,
+      'status': status.index,
+    };
   }
 
   factory CustomersState.fromMap(Map<String, dynamic> map) {
@@ -36,7 +40,7 @@ class CustomersState extends Equatable {
 
     return CustomersState(
       customers: List.from((map['customers'] as List)),
-      message: map['message'] ,
+      message: map['message'],
       status: CustomersStatus.values[index],
     );
   }

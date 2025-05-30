@@ -1,7 +1,6 @@
-import 'package:route_to_market/domain/models/activity/Activity.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
-import 'package:route_to_market/domain/models/visit/Visit.dart';
-
+import 'package:route_to_market/domain/models/activity/activity.dart';
+import 'package:route_to_market/domain/models/customer/customer.dart';
+import 'package:route_to_market/domain/models/visit/visit.dart';
 
 final List<Customer> fakeCustomers = [
   Customer(

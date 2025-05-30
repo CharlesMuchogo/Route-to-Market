@@ -1,0 +1,44 @@
+name: Lint Check
+
+on:
+  push:
+    branches:
+      - master
+      - visits
+
+jobs:
+  build_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      #Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Api key
+      - name: Add api key
+        run: echo "API_KEY=${{ secrets.ANDROID_KEY_ALIAS }}" >> .env
+
+      # Setup JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      # Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      # Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+       # Fetch packages
+      - name: Fetch packages
+        run: flutter pub get
+
+      # Run lint checks
+      - name: Run lint checks
+        run: dart analyze

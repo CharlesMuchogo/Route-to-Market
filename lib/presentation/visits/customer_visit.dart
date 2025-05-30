@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:route_to_market/domain/dto/Visit_dto.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
+import 'package:route_to_market/domain/dto/visit_dto.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
 import 'package:route_to_market/presentation/bloc/activities/activities_bloc.dart';
 import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
-import 'package:route_to_market/presentation/components/AppButton.dart';
-import 'package:route_to_market/presentation/components/AppTextField.dart';
-import 'package:route_to_market/presentation/components/CustomBox.dart';
-import 'package:route_to_market/presentation/customers/Customers_Visits.dart';
+import 'package:route_to_market/presentation/components/app_button.dart';
+import 'package:route_to_market/presentation/components/app_text_field.dart';
+import 'package:route_to_market/presentation/components/custom_box.dart';
+import 'package:route_to_market/presentation/customers/customers_visits.dart';
 
-import '../../domain/models/customer/Customer.dart';
-import '../components/AppSnackBar.dart';
+import '../../domain/models/customer/customer.dart';
+import '../components/app_snack_bar.dart';
 import 'activity_card.dart';
 
 class CustomerVisitPage extends StatefulWidget {
@@ -27,7 +27,6 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
   TextEditingController locationController = TextEditingController();
   List<int> completedActivities = [];
   String? locationError;
-
 
   @override
   Widget build(BuildContext context) {
@@ -162,25 +161,27 @@ class _CustomerVisitPageState extends State<CustomerVisitPage> {
                 content: BlocConsumer<VisitsBloc, VisitsState>(
                   listener: (context, state) {
                     if (state.status == VisitsStatus.success) {
-                       setState(() {
-                         locationController.text = "";
-                         notesController.text = "";
-                         completedActivities = [];
-                       });
+                      setState(() {
+                        locationController.text = "";
+                        notesController.text = "";
+                        completedActivities = [];
+                      });
 
-                       AppSnackBar.show(context,
-                           message: state.message,
-                           color: Colors.green,
-                           icon: Icons.check_circle
-                       );
+                      AppSnackBar.show(
+                        context,
+                        message: state.message,
+                        color: Colors.green,
+                        icon: Icons.check_circle,
+                      );
 
-                       Navigator.of(context).push(
-                         MaterialPageRoute(
-                           builder:
-                               (context) =>
-                               CustomersVisitsPage(customer: widget.customer),
-                         ),
-                       );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder:
+                              (context) => CustomersVisitsPage(
+                                customer: widget.customer,
+                              ),
+                        ),
+                      );
                     }
                   },
                   builder: (context, state) {

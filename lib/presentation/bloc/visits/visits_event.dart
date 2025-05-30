@@ -21,14 +21,14 @@ class GetVisits extends VisitsEvent {
 }
 
 class GetCustomerVisits extends VisitsEvent {
-   final int id;
+  final int id;
   const GetCustomerVisits({required this.id});
 }
 
 class FilterCustomerVisits extends VisitsEvent {
-   final VisitFilters filters;
-   final int id;
-  const FilterCustomerVisits({required this.filters, required this.id });
+  final VisitFilters filters;
+  final int id;
+  const FilterCustomerVisits({required this.filters, required this.id});
 }
 
 class MakeVisit extends VisitsEvent {

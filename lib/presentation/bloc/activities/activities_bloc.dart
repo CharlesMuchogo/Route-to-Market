@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:route_to_market/data/local/LocalDatabase.dart';
-import 'package:route_to_market/data/remote/RemoteRepository.dart';
-import 'package:route_to_market/domain/models/activity/Activity.dart';
+import 'package:route_to_market/data/local/local_database.dart';
+import 'package:route_to_market/data/remote/remote_repository.dart';
+import 'package:route_to_market/domain/models/activity/activity.dart';
 
 part 'activities_event.dart';
 part 'activities_state.dart';

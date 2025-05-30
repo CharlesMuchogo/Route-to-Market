@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppSnackBar {
   static void show(
-      BuildContext context, {
-        required String message,
-        Color? color,
-        IconData? icon,
-      }) {
+    BuildContext context, {
+    required String message,
+    Color? color,
+    IconData? icon,
+  }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
@@ -16,7 +16,8 @@ class AppSnackBar {
             Text(message),
           ],
         ),
-        backgroundColor: color ?? Theme.of(context).snackBarTheme.backgroundColor,
+        backgroundColor:
+            color ?? Theme.of(context).snackBarTheme.backgroundColor,
       ),
     );
   }

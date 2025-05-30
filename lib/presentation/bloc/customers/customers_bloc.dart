@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:route_to_market/data/remote/RemoteRepository.dart';
-import 'package:route_to_market/domain/models/customer/Customer.dart';
+import 'package:route_to_market/data/remote/remote_repository.dart';
+import 'package:route_to_market/domain/models/customer/customer.dart';
 
 part 'customers_event.dart';
 part 'customers_state.dart';
@@ -27,7 +27,7 @@ class CustomersBloc extends HydratedBloc<CustomersEvent, CustomersState> {
         state.copyWith(
           status: CustomersStatus.loaded,
           message: "Customers fetched Successfully",
-          customers: results.map((e) => e.toJson()).toList()
+          customers: results.map((e) => e.toJson()).toList(),
         ),
       );
     } catch (e) {
