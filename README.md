@@ -76,7 +76,7 @@ track orders, and enhance on-the-ground decision-making.
 - You can run tests using
 
 ```bash
-  flutter run
+  flutter test
 ```
 
 - I use Github actions for CI/CD. Every time a push is made to the main branch we run tests and
