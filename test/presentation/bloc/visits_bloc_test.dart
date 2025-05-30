@@ -8,11 +8,13 @@ import 'package:route_to_market/data/local/LocalDatabase.dart';
 import 'package:route_to_market/data/remote/MockData.dart';
 import 'package:route_to_market/data/remote/RemoteRepository.dart';
 import 'package:route_to_market/data/remote/RemoteRepositoryMock.dart';
+import 'package:route_to_market/domain/dto/Visit_dto.dart';
 import 'package:route_to_market/presentation/bloc/visits/visits_bloc.dart';
 
 class MockStorage extends Mock implements Storage {}
 class MockLocalDatabase extends Mock implements LocalDatabase {}
 class MockConnectivity extends Mock implements Connectivity {}
+class VisitDtoFake extends Fake implements VisitDto {}
 
 void main() {
   group("Test visits bloc is set up correctly", () {
@@ -23,6 +25,7 @@ void main() {
     late Storage storage;
 
     setUp(() async {
+      registerFallbackValue(VisitDtoFake());
       storage = MockStorage();
       when(() => storage.write(any(), any<dynamic>())).thenAnswer((_) async {});
       when(() => storage.read(any())).thenAnswer((_) async => null);
@@ -31,6 +34,11 @@ void main() {
       mockRepository = RemoteRepositoryMock();
       mockLocalDatabase = MockLocalDatabase();
       mockConnectivity = MockConnectivity();
+
+      when(() => mockLocalDatabase.getSavedVisits())
+          .thenAnswer((_) async => []);
+      when(() => mockLocalDatabase.saveVisit(any()))
+          .thenAnswer((_) async {});
 
       when(() => mockConnectivity.checkConnectivity())
           .thenAnswer((_) async => [ConnectivityResult.wifi] );
