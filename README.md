@@ -20,22 +20,22 @@ track orders, and enhance on-the-ground decision-making.
 ### iOS
 
 <p align="center">
-<img src="screenshots/ios/1.png" width="240" alt=""/> 
-<img src="screenshots/ios/2.png" width="240" alt=""/> 
-<img src="screenshots/ios/3.png" width="240" alt=""/> 
-<img src="screenshots/ios/5.png" width="240" alt=""/> 
-<img src="screenshots/ios/6.png" width="240" alt=""/>
+<img src="screenshots/ios/1.png" width="180" alt=""/> 
+<img src="screenshots/ios/2.png" width="180" alt=""/> 
+<img src="screenshots/ios/3.png" width="180" alt=""/> 
+<img src="screenshots/ios/5.png" width="180" alt=""/> 
+<img src="screenshots/ios/6.png" width="180" alt=""/>
 </p>
 
 
 ### Android
 
 <p align="center">
-<img src="screenshots/android/1.png" width="240" alt=""/> 
-<img src="screenshots/android/2.png" width="240" alt=""/> 
-<img src="screenshots/android/3.png" width="240" alt=""/> 
-<img src="screenshots/android/4.png" width="240" alt=""/> 
-<img src="screenshots/android/5.png" width="240" alt=""/> 
+<img src="screenshots/android/1.png" width="180" alt=""/> 
+<img src="screenshots/android/2.png" width="180" alt=""/> 
+<img src="screenshots/android/3.png" width="180" alt=""/> 
+<img src="screenshots/android/4.png" width="180" alt=""/> 
+<img src="screenshots/android/5.png" width="180" alt=""/> 
 </p>
 
 
