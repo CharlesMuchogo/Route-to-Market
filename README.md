@@ -103,8 +103,8 @@ To get a local copy up and running, follow these simple steps.
 
 ### 🔧 Prerequisites
 
-- Flutter SDK >= 3.7.2
-- Dart >= 3.x
+- Flutter SDK >= 3.32.0
+- Dart >= 3.8.0
 - Android Studio / VS Code
 - Emulator or real device
 
