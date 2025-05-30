@@ -13,30 +13,36 @@ track orders, and enhance on-the-ground decision-making.
 - 📈 Reactive UI with Flutter BLoC state management
 - 🧪 Comprehensive testing support with `bloc_test` and `mocktail`
 
-## Screenshots
+## Screenshots and screen recording
+
+
+### Screen recording
+
+
+https://github.com/user-attachments/assets/6b45f714-d3e9-4804-a5a8-222cc675843c
 
 
 
 ### iOS
 
-<p align="center">
-<img src="screenshots/ios/1.png" width="180" alt=""/> 
-<img src="screenshots/ios/2.png" width="180" alt=""/> 
-<img src="screenshots/ios/3.png" width="180" alt=""/> 
-<img src="screenshots/ios/5.png" width="180" alt=""/> 
-<img src="screenshots/ios/6.png" width="180" alt=""/>
-</p>
+<div style="text-align:left">
+<img src="screenshots/ios/1.png" width="250" alt=""/> 
+<img src="screenshots/ios/2.png" width="250" alt=""/> 
+<img src="screenshots/ios/3.png" width="250" alt=""/> 
+<img src="screenshots/ios/5.png" width="250" alt=""/> 
+<img src="screenshots/ios/6.png" width="250" alt=""/>
+</div>
 
 
 ### Android
 
-<p align="center">
-<img src="screenshots/android/1.png" width="180" alt=""/> 
-<img src="screenshots/android/2.png" width="180" alt=""/> 
-<img src="screenshots/android/3.png" width="180" alt=""/> 
-<img src="screenshots/android/4.png" width="180" alt=""/> 
-<img src="screenshots/android/5.png" width="180" alt=""/> 
-</p>
+<div style="text-align:left">
+<img src="screenshots/android/1.png" width="250" alt=""/> 
+<img src="screenshots/android/2.png" width="250" alt=""/> 
+<img src="screenshots/android/3.png" width="250" alt=""/> 
+<img src="screenshots/android/4.png" width="250" alt=""/> 
+<img src="screenshots/android/5.png" width="250" alt=""/> 
+</div>
 
 
 ---
